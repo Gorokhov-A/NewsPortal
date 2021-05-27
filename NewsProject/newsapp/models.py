@@ -7,12 +7,14 @@ class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
     ratingAuthor = models.SmallIntegerField(default=0)
 
-    def __str__(self):
-        return self.authorUser
+    class meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
 
-    class Meta:
-        verbose_authorUser = 'Автор'
-        verbose_authorUser_plural = 'Авторы'
+    def __str__(self):
+       return f'{self.authorUser} ~ {self.ratingAuthor}...'
+
+
 
 
     def update_rating(self):
@@ -30,8 +32,14 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    description = models.TextField()
+    #description = models.TextField()
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -49,7 +57,8 @@ class Post(models.Model):
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
-
+    def __str__(self):
+        return f'{self.title} ~ {self.text[:50]}...'
 
     def like(self):
         self.rating += 1
@@ -67,6 +76,8 @@ class PostCategory(models.Model):
     postTrough = models.ForeignKey(Post, on_delete=models.CASCADE)
     categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.categoryTrough}'
 
 class Comment(models.Model):
     commentPost = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -75,6 +86,8 @@ class Comment(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.commentPost} ~ {self.commentUser}...'
 
 
     def like(self):
