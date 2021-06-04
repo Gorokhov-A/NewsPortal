@@ -1,16 +1,15 @@
 {% extends 'default.html' %}
-{% load filters %}
 
 {% block title %}
 {{ post.title }}
 {% endblock title %}
 
 {% block content %}
-    <h1>{{ post.title|censor }}</h1>
+    <h1>{{ post.title}}</h1>
     <h5>{{ post.date|date:'d-m-Y H:i' }}</h5>
     <hr>
-    {{ post.text|censor }}
+    {{ post.text }}
     <hr>
-    <h5>Автор - {{ post.author.user.username }}</h5>
+    <h5>Автор - {{ post.author }}</h5>
     <h5>Рейтинг статьи - {{ post.rating }}</h5>
 {% endblock content %}

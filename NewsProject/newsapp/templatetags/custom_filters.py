@@ -6,7 +6,7 @@ register = template.Library()
 @register.filter(name='censor')
 def censor(value):
     censored, default = '', value.split()
-    file = open('NewsPaperApp/templatetags/censor_list.txt', 'r', encoding='utf8')
+    file = open('newsapp/templatetags/censor_list.txt', 'r', encoding='utf8')
     text = file.read().split(', ')
     file.close()
     for word in default:

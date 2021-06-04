@@ -1,9 +1,11 @@
 {% extends 'flatpages/default.html' %}
+{% load custom_filters %}
 {% block title %}
 Products
 {% endblock title %}
 {% block content %}
     <h1>Все статьи</h1>
+      <h3>Количество статей на сегодня {{ posts|length}}</h3>
     <hr>
     {% if posts %} <!-- Если есть товары, то выводим таблицу с ними -->
         <table>
@@ -21,21 +23,23 @@ Products
                     Предпоказ
                 </td>
             </tr>
+            {% for p in category %}
         {% for post in posts %}             <tr>
                 <td>
-                    {{ post.dateCreation }}
+                    {{ post.dateCreation|date:'d M Y' }}
                 </td>
                 <td>
-                    {{ category }}
+                    {{ p.name|censor}}
                 </td>
                 <td>
-                    {{ post.title  }}
+                    {{ post.title|censor|truncatewords:1  }}
                 </td>
                 <td>
-                    {{ post.preview}}
+                    {{ post.preview|censor|truncatewords:20}}
                 </td>
             </tr>
-        {% endfor %}
+            {% endfor %}
+            {% endfor %}
         </table>
     {% else %}
         <h2>Новостей нет!</h2>

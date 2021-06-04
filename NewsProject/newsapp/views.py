@@ -1,6 +1,7 @@
+from django.urls import path
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import  Post
+from .models import  Post, Category
 from django.core.paginator import Paginator
 
 class PostsList(ListView):
@@ -9,12 +10,16 @@ class PostsList(ListView):
     context_object_name = 'posts'
     ordering = ['-id']
     paginate_by = 10
-    #form_class = PostForm
-
-def get_context_data(self, **kwargs):
+    # form_class = PostForm
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = PostCategory.objects.get(id=self.kwargs['pk']).categoryTrough
+        context['category'] = Category.objects.all()
         return context
+
+class PostDetail(DetailView):
+    template_name = 'post.html'
+    queryset = Post.objects.all()
+
 
 def index(request):
     return render(request, 'index.html')
