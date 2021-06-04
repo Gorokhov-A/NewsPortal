@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    #'NewsProject',
     'newsapp',
+    'newsapp.templatetags',
 ]
 
 SITE_ID = 1
